@@ -1,7 +1,22 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+
+const currentUser = ref(null);
+
+onMounted(() => {
+    const userData = localStorage.getItem('currentUser');
+    if (userData) {
+        currentUser.value = JSON.parse(userData);
+    }
+});
+
+const logout = () => {
+    localStorage.removeItem('currentUser');
+    currentUser.value = null;
+    // Перенаправление на страницу входа
+};
 
 </script>
-
 <template>
     <div class="menu">
         <div class="titleInfoBlock">
@@ -63,7 +78,16 @@
                 </a>
             </div>
         </div>
-        <div class="authBlock" id="authBlock">
+        <div v-if="currentUser">
+            <a href="#/PersonalAccount" class="user_link">
+                <div class="user_block" v-for="(currentUser, index) in currentUser" :key="index">
+                    <img :src="currentUser.photo" alt="User Photo" class="user_photo">
+                    <p class="user_name">{{ currentUser.name }}</p>
+                </div>
+                <button @click="logout">Выйти</button>
+            </a>
+        </div>
+        <div v-else class="authBlock" id="authBlock">
             <a href="#" class="authLink">
                 <img src="../assets/icons/Login.png">
                 <div class="navText">
@@ -129,6 +153,26 @@
     }
     .navLink:focus{
         background-color: #294694;
+    }
+    .user_block {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        min-width: 0;
+        position: absolute;
+        bottom: 10px;
+        left: 15px;
+        width: 100%;
+        text-decoration: none;
+        color: #fff;
+    }
+    .user_photo {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .user_name {
+        margin-left: 10px;
     }
     .authBlock{
         flex-grow: 1;

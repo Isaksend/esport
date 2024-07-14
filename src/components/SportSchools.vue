@@ -20,9 +20,12 @@ const handleSearch = (query) => {
 </script>
 <template>
     <div>
-        <div class="search_input">
+        <div v-if="true" class="search_input">
             <search-bar @search="handleSearch"></search-bar>
             <SchoolList :items="filteredItems"></SchoolList>
+        </div>
+        <div v-if="false" class="choosed_school">
+            <SchoolData :items="items" />
         </div>
     </div>
 </template>
