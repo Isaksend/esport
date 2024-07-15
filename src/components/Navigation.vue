@@ -1,21 +1,4 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-
-const currentUser = ref(null);
-
-onMounted(() => {
-    const userData = localStorage.getItem('currentUser');
-    if (userData) {
-        currentUser.value = JSON.parse(userData);
-    }
-});
-
-const logout = () => {
-    localStorage.removeItem('currentUser');
-    currentUser.value = null;
-    // Перенаправление на страницу входа
-};
-
 </script>
 <template>
     <div class="menu">
@@ -87,7 +70,7 @@ const logout = () => {
                 <button @click="logout">Выйти</button>
             </a>
         </div>
-        <div v-else class="authBlock" id="authBlock">
+        <div v-else class="authBlock" id="authBlock" @click="openModel">
             <a href="#" class="authLink">
                 <img src="../assets/icons/Login.png">
                 <div class="navText">

@@ -1,20 +1,4 @@
 <script setup>
-    import { ref, onMounted } from 'vue';
-    import { useRouter } from 'vue-router';
-    const router = useRouter();
-    const currentUser = ref(null);
-    onMounted(() => {
-    const userData = localStorage.getItem('currentUser');
-        if (userData) {
-            currentUser.value = JSON.parse(userData);
-        } else {
-            router.push('/'); // Перенаправление на страницу входа, если нет данных пользователя
-        }
-    });
-    const logout = () => {
-        localStorage.removeItem('currentUser'); // Удаление данных пользователя
-        router.push('/');
-    };
 </script>
 <template>
     <div class="personalAccount"> 

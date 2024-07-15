@@ -1,46 +1,14 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
 const modalBlock = ref(null);
 let scrollPosition = 0;
-const router = useRouter();
-const adminData = ref([]);
-const isLoggedIn = ref(false);
-const formData = ref({
-    iin: '',
-    password: ''
-});
-const loadAdminData = async () => {
-    try {
-        const response = await fetch('/database/admin.json');
-        const data = await response.json();
-        adminData.value = data;
-    } catch (error) {
-        console.error("Failed to load admin data:", error);
-    }
-};
-const handleSubmit = () => {
-    const user = adminData.value.find(user => user.iin === formData.value.iin && user.password === formData.value.password);
-    if (user) {
-        localStorage.setItem('currentUser', JSON.stringify(user)); // Сохраняем пользователя в LocalStorage
-        router.push('/PersonalAccount');
-        isLoggedIn.value = true;
-    } else {
-        alert('Неверный ИИН или пароль');
-    }
-    closeModal();
-};
-
-
 function openModal() {
     scrollPosition = window.pageYOffset;
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollPosition}px`;
     document.body.style.width = '100%';
-    if (modalBlock.value) {
-        modalBlock.value.style.display = "block";
-    }
+    modalBlock.value.style.display = "block";
 }
 function closeModal() {
     document.body.style.removeProperty('overflow');
@@ -48,21 +16,10 @@ function closeModal() {
     document.body.style.removeProperty('top');
     document.body.style.removeProperty('width');
     window.scrollTo(0, scrollPosition);
-    if (modalBlock.value) {
-        modalBlock.value.style.display = "none";
-    }
+    modalBlock.value.style.display = "none";
 }
 onMounted(() => {
     modalBlock.value = document.querySelector('.modal_block');
-    loadAdminData();// loading data of use in mounting
-    const authBlock = document.querySelector('.authBlock');
-    const closeButton = document.querySelector('.close_btn');
-    if (authBlock) {
-        authBlock.addEventListener('click', openModal);
-    }
-    if (closeButton) {
-        closeButton.addEventListener('click', closeModal);
-    }
 });
 </script>
 <template>
@@ -84,11 +41,11 @@ onMounted(() => {
             <form @submit.prevent="handleSubmit" method="post" class="form_login">
                 <div class="input_container">
                     <img src="../assets/icons/User.png" min="000000000000" max="999999999999" alt="ИИН/ЖСН" class="input_icon">
-                    <input type="text" name="iin" v-model="formData.iin" id="iin" pattern="\d{12}" placeholder="ИИН/ЖСН" maxlength="12" required>
+                    <input type="text" name="iin" id="iin" pattern="\d{12}" placeholder="ИИН/ЖСН" maxlength="12" required>
                 </div>
                 <div class="input_container">
                     <img src="../assets/icons/Password.png" alt="Пароль" class="input_icon">
-                    <input type="password" name="password" v-model="formData.password" id="password_id" placeholder="Пароль" required>
+                    <input type="password" name="password" id="password_id" placeholder="Пароль" required>
                 </div>
                 <div class="input_submit">
                     <input type="submit" name="login" id="login" value="Войти">
