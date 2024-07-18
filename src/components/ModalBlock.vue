@@ -1,32 +1,91 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+const router = useRouter();
+const store = useStore();
+const isModalOpen = computed(() => store.state.isModalOpen);
+
+watch(isModalOpen, (newVal) => {
+    if (newVal) {
+        openModalLogic();
+    } else {
+        closeModalLogic();
+    }
+});
+
 const modalBlock = ref(null);
 let scrollPosition = 0;
-function openModal() {
+
+function openModalLogic() {
     scrollPosition = window.pageYOffset;
     document.body.style.overflow = 'hidden';
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollPosition}px`;
     document.body.style.width = '100%';
-    modalBlock.value.style.display = "block";
+    if (modalBlock.value) {
+        modalBlock.value.style.display = "block";
+    }
 }
-function closeModal() {
+function closeModalLogic() {
     document.body.style.removeProperty('overflow');
     document.body.style.removeProperty('position');
     document.body.style.removeProperty('top');
     document.body.style.removeProperty('width');
     window.scrollTo(0, scrollPosition);
-    modalBlock.value.style.display = "none";
+    if (modalBlock.value) {
+        modalBlock.value.style.display = "none";
+    }
 }
 onMounted(() => {
     modalBlock.value = document.querySelector('.modal_block');
 });
+const closeModal = () => {
+    store.dispatch('closeModal');
+};
+
+const iin = ref('');
+const password = ref('');
+const message = ref('');
+
+const submitForm = () => {
+    axios.post('http://localhost:4004/v1/auth/signin', {
+        iin: iin.value,
+        password: password.value
+    })
+    .then(response => {
+        console.log('API response:', response); // Debug log for API response
+        // Set a custom message based on the response
+        const apiIin = response.data.data.user.iin;
+        const apiMessage = response.statusText === 'Created' ? 'root admin' : 'Login failed';
+        const token = response.data.data.auth.access.token;
+        console.log('API response message:', apiMessage); // Debug log for message
+        console.log('Token:', token); // Debug log for token
+        message.value = apiMessage;
+        store.dispatch('postUser/updateMessage', apiMessage, { root: true }); // Update Vuex store
+        store.dispatch('postUser/updateIin', apiIin, { root: true }); // Update Vuex store with iin
+        store.dispatch('postUser/updateAuthToken', token, { root: true }); // Update Vuex store with token
+        console.log('Message after dispatch:', message.value); // Debug log
+        console.log('Iin after dispatch:', apiIin); // Debug log
+        console.log('Token after dispatch:', token);
+        router.push('/PersonalAccount');
+        closeModalLogic();
+    })
+    .catch(error => {
+        console.error(error);
+        const errorMessage = 'Неправильный пароль или иин';
+        message.value = errorMessage;
+        store.dispatch('postUser/updateMessage', errorMessage, { root: true }); // Update Vuex store
+    });
+};
+
 </script>
 <template>
-<div class="modal_block" ref="modalBlock">
+<div class="modal_block" @click.self="closeModal">
     <div class="modal">
         <div class="modal_content">
-            <div class="close_btn">
+            <div class="close_btn" @click="closeModal">
                 <img src="../assets/icons/close.png">
             </div>
             <div class="modal_emblem_kz">
@@ -38,18 +97,19 @@ onMounted(() => {
                     Министерства туризма и спорта Республики Казахстан
                 </div>
             </div>
-            <form @submit.prevent="handleSubmit" method="post" class="form_login">
+            <form @submit.prevent="submitForm" method="post" class="form_login">
                 <div class="input_container">
                     <img src="../assets/icons/User.png" min="000000000000" max="999999999999" alt="ИИН/ЖСН" class="input_icon">
-                    <input type="text" name="iin" id="iin" pattern="\d{12}" placeholder="ИИН/ЖСН" maxlength="12" required>
+                    <input type="text" v-model="iin" name="iin" id="iin" pattern="\d{12}" placeholder="ИИН/ЖСН" maxlength="12" required>
                 </div>
                 <div class="input_container">
                     <img src="../assets/icons/Password.png" alt="Пароль" class="input_icon">
-                    <input type="password" name="password" id="password_id" placeholder="Пароль" required>
+                    <input type="password" v-model="password"  name="password" id="password_id" placeholder="Пароль" required>
                 </div>
                 <div class="input_submit">
-                    <input type="submit" name="login" id="login" value="Войти">
+                    <input type="submit"  name="login" id="login" value="Войти">
                 </div>
+                <p>{{ message }}</p>
             </form>
             <div class="forget_pass_link">
                 <a href="#" class="forget_link">

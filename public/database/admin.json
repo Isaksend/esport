@@ -7,14 +7,5 @@
         "position": "Админ",
         "status": "admin",
         "photo": "photo_profiles/alno.jpg"
-    },
-    {
-        "iin": "111111111111",
-        "password": "2",
-        "name": "Әлназар",
-        "surname": "Марат ұлы",
-        "position": "Спортсмен",
-        "status": "sportsmen",
-        "photo": "photo_profiles/alno.jpg"
     }
 ]

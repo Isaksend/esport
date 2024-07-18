@@ -5,6 +5,7 @@
     function performSearch() {
         emit('search', searchQuery.value);
     };
+    
 </script>
 <template>
     <div class="search-bar">

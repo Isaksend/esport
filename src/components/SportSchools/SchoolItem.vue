@@ -1,34 +1,39 @@
 <script setup>
 import { defineProps } from 'vue';
+import { useRouter } from 'vue-router'; 
 const props = defineProps({
-    item: {
+    school: {
         type: Object,
         required: true
     }
 });
+const router = useRouter();
 const getCategoryColor = (category) => {
-const colors = {
-    'Каз. курес': '#29FF72', 
-    'бокс': '#E1253C',       
-    'борьба': '#FFB629'    
+    const colors = {
+        'Каз. курес': '#29FF72', 
+        'бокс': '#E1253C',       
+        'борьба': '#FFB629'    
+    };
+    return colors[category] || '#ffffff'; 
 };
-return colors[category] || '#ffffff'; // Белый цвет по умолчанию, если категория не найдена
+const goToDetails = () => {
+  router.push({ name: 'SchoolData', params: { id: props.school.id } }); // Перейдите к маршруту с параметрами
 };
 
 </script>
 <template>
     <div class="schoolBlock">
         <div class="school_item">
-            <img :src="item.image" alt="Image of school" class="item_image">
+            <img src="https://i.postimg.cc/jjSq1VMQ/item-1.png" alt="Image of school" class="item_image">
             <div class="item_title">
-                {{ item.title }}
+                {{ school.title }}
             </div>
             <div class="item_address">
-                {{ item.address }}
+                {{ school.address }}
             </div>
             <div class="item_categories">
                 <div 
-                    v-for="category in item.categories" 
+                    v-for="category in school.categories" 
                     :key="category"
                     class="category"
                     :style="{ backgroundColor: getCategoryColor(category) }"
@@ -37,17 +42,17 @@ return colors[category] || '#ffffff'; // Белый цвет по умолчан
                 </div>
             </div>
             <div class="item_description">
-                {{ item.description }}
+                {{ school.description }}
             </div>
             <div class="item_rating">
                 <div v-for="index in 5" :key="index" class="star">
-                    <img src="../../assets/icons/StarLight.png" v-if="index <= item.rating" alt="Filled Star">
+                    <img src="../../assets/icons/StarLight.png" v-if="index <= school.rating" alt="Filled Star">
                     <img src="../../assets/icons/StarGray.png" v-else alt="Empty Star">
                 </div>
             </div>
             <span class="score_text">Оценка</span><br/>
             <div class="item_link_block">
-                <a :href="item.linkURL" target="_blank" class="item_detail_link">Подробнее</a>
+                <a  @click.prevent="goToDetails" href="#" target="_blank" class="item_detail_link">Подробнее</a>
             </div>
         </div>
     </div>

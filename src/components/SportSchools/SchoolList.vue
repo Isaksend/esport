@@ -1,14 +1,20 @@
 <script setup>
-    import { ref } from 'vue';
-    import { defineProps } from 'vue';
-    import SchoolItem from './SchoolItem.vue';
-    const tile_formate = ref(true);
-    function toggleFormate(){
-        tile_formate.value = !tile_formate.value;
+import { ref } from 'vue';
+import { defineProps } from 'vue';
+import SchoolItem from './SchoolItem.vue';
+
+const props = defineProps({
+    schools: {
+        type: Array,
+        required: true
     }
-    const props = defineProps({
-        items: Array
-    });
+});
+
+const tile_formate = ref(true);
+
+function toggleFormate() {
+    tile_formate.value = !tile_formate.value;
+}
 </script>
 <template>
     <div class="listBlock">
@@ -28,11 +34,14 @@
             </div>
         </div>
         <div class="listSchool">
-            <SchoolItem
-                v-for="item in items"
-                :key="item.id"
-                :item="item"
-            />
+            <!-- <SchoolItem
+                v-for="school in schools"
+                :key="school.id"
+                :school="school"
+            /> -->
+            <div v-for="school in props.schools" :key="school.id" class="tile">
+                <SchoolItem :school="school"/>
+            </div>
         </div>
     </div>
 </template>

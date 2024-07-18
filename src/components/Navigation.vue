@@ -1,4 +1,18 @@
 <script setup>
+import { useStore } from 'vuex';
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+const openModal = () => {
+    store.dispatch('openModal');
+};
+const store = useStore();
+const message = computed(() => store.getters['postUser/message']);
+const iin = computed(() => store.getters['postUser/iin']);
+const logout = async () => {
+    await store.dispatch('postUser/logout');
+    router.push('/QazMap');
+};
 </script>
 <template>
     <div class="menu">
@@ -61,22 +75,26 @@
                 </a>
             </div>
         </div>
-        <div v-if="currentUser">
-            <a href="#/PersonalAccount" class="user_link">
-                <div class="user_block" v-for="(currentUser, index) in currentUser" :key="index">
-                    <img :src="currentUser.photo" alt="User Photo" class="user_photo">
-                    <p class="user_name">{{ currentUser.name }}</p>
-                </div>
-                <button @click="logout">Выйти</button>
-            </a>
+        <div v-if="message">
+            <div class="profile_line">
+                <a href="#/PersonalAccount" class="user_link">
+                    <div class="user_block">
+                        <img src="https://i.postimg.cc/7YdHngZH/alno.jpg" alt="User Photo" class="user_photo">
+                        <p class="user_name">ИИН: {{ iin }}</p>
+                        <a href="#/QazMap" class="logout_btn">
+                            <button @click="logout">Выйти</button>
+                        </a>
+                    </div>
+                </a>
+            </div>
         </div>
-        <div v-else class="authBlock" id="authBlock" @click="openModel">
-            <a href="#" class="authLink">
+        <div v-else class="authBlock" id="authBlock" >
+            <div class="authLink" @click="openModal">
                 <img src="../assets/icons/Login.png">
                 <div class="navText">
                     Войти
                 </div>
-            </a>
+            </div>
         </div>
     </div>
 </template>
@@ -140,12 +158,13 @@
     .user_block {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         flex-grow: 1;
         min-width: 0;
         position: absolute;
         bottom: 10px;
         left: 15px;
-        width: 100%;
+        width: 300px;
         text-decoration: none;
         color: #fff;
     }
@@ -178,6 +197,17 @@
     .authLink img{
         width: 30px;
         height: 30px;
+    }
+    .user_link{
+        display: flex;
+        justify-content: space-between;
+    }
+    .logout_btn button{
+        font-size: 1rem;
+        border: none;
+        color: black;
+        border-radius: 5px;
+        padding: 5px 8px;
     }
     @media screen and (max-width: 431px){
         .menu{

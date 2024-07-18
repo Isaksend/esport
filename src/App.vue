@@ -3,9 +3,7 @@
   import Navigation from "./components/Navigation.vue";
   import QazMap from "./components/QazMap.vue";
   import ModalBlock from "./components/ModalBlock.vue";
-
 </script>
-
 <template>
   <div class="App">
     <div class="AllComponents">
