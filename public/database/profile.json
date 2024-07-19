@@ -6,12 +6,21 @@
         "biography": "И́горь Вале́рьевич Ша́цкий — казахстанский футболист, вратарь клуба «Актобе» и сборной Казахстана.",
         "status": "sportsman",
         "photo": "https://i.postimg.cc/MTwqybrs/profile-num-2.png",
-        "disciplines": [
-            "kickboxing",
-            "box",
-            "Каратэ",
-            "Football"
+        "awards": [
+            {
+                "id": 1,
+                "link": "https://www.youtube.com/",
+                "img": "https://i.postimg.cc/1z7YSDLW/award-cup.png",
+                "text": "Кубок Азии"
+            },
+            {
+                "id": 2,
+                "link": "https://www.youtube.com/",
+                "img": "https://i.postimg.cc/7ZxBTB4s/Trophy-Cup.png",
+                "text": "Лига Наций"
+            }
         ],
+        "discipline": "Football",
         "coach": "Станислав Черчесов",
         "rating": 4,
         "gallery": [

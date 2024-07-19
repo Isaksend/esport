@@ -9,10 +9,11 @@
         biography: string;
         status: string;
         photo: string;
-        disciplines: string[];
+        disciplines: string;
         coach: string;
         rating: number;
         gallery: string[]; 
+        awards: string[];
     }
     const user = (userData as UserProfile[])[0];
 </script>
@@ -61,9 +62,12 @@
                     <div class="award_title text-1xl font-bold">
                         Награды
                     </div>
-                    <div class="award_list">
-                        <div class="award_item">
-                            <img src="https://i.postimg.cc/3wSHz5Lv/3rd-Place-Medal.png" alt="За 3 место в КПЛ сезон 22/23"/>
+                    <div class="award_list flex mt-2">
+                        <div v-for="item in user.awards" :key="item.id" class="award_item">
+                            <a :href="item.link" class="flex" target="_blank"> 
+                                <img :src="item.img" :alt="`Photo of ${item.text}`" class="size-10">
+                                <p class="mt-2">{{ item.text }}</p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -71,7 +75,7 @@
                     <div class="disciplines_title text-1xl font-bold">
                         Дисциплины
                     </div>
-                    {{  user.disciplines.join(", ") }}
+                    {{  user.discipline }}
                 </div>
                 <div class="coach mt-2.5">
                     <div class="coach_title text-1xl font-bold">
