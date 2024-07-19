@@ -47,6 +47,7 @@ onMounted(() => {
         Загрузка...
     </div>
     <div v-else-if="school" class="school_data">
+        <BaseInput/>
         <div class="school_title_info">
             <div class="school_score">
                 <img src="../../assets/icons/StarLight.png" v-for="index in 5" :key="index" />

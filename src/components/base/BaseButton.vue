@@ -1,31 +1,63 @@
-<script>
-    
-</script>
 <template>
-    <button id="btn">
-        Default Button
+    <button :style="buttonStyle">
+        {{ label }}
     </button>
 </template>
 <style scoped>
-    #btn{
+    button {
         padding: 10px 15px;
         text-align: center;
         font-weight: 500;
-        color: #031954;
-        border: 1px solid #031954;
-        background-color: #fff;
         font-family: 'Montserrat', sans-serif;
         border-radius: 5px;
         font-size: 14px;
         transition: all 200ms ease;
-        cursor: pointer; 
+        cursor: pointer;
     }
-    #btn:hover{
+    button:hover {
         background-color: #203D8B;
         color: #fff;
     }
-    #btn:active{
+    button:active {
         background-color: #203D8B;
         color: #fff;
     }
-</style>
+    </style>
+    
+    <script>
+    export default {
+        name: "BaseButton",
+        props: {
+        label: {
+            type: String,
+            default: "Default Button",
+        },
+        color: {
+            type: String,
+            default: "#031954", // default text color
+        },
+        backgroundColor: {
+            type: String,
+            default: "#fff", // default background color
+        },
+        borderColor: {
+            type: String,
+            default: "#031954", // default border color
+        },
+        fontSize: {
+            type: String,
+            default: "14px", // default font size
+        },
+        },
+        computed: {
+        buttonStyle() {
+            return {
+            color: this.color,
+            backgroundColor: this.backgroundColor,
+            border: `1px solid ${this.borderColor}`,
+            fontSize: this.fontSize,
+            };
+        },
+        },
+    };
+</script>
