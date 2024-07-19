@@ -100,7 +100,6 @@
     import regionImage from '@/assets/icons/Location.png';
     import sportImage from '@/assets/icons/sport.png';
     import RankingImage from '@/assets/icons/Ranking.png';
-    import BaseInput from './Base/BaseInput.vue';
     export default {
     components: { DropDown },
     name: 'QazMap',

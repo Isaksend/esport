@@ -8,7 +8,6 @@
         };
         return colors[discipline] || '#ffffff'; 
     };
-
 </script>
 <template>
     <div class="listSportsMen">
@@ -42,9 +41,9 @@
                         рейтинг
                     </div>
                     <div class="itemBtnMore">
-                        <div class="btnMore">
+                        <router-link to="/SportsmenProfile" class="btnMore">
                             Подробнее
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>

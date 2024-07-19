@@ -1,63 +1,38 @@
 <template>
-    <button :style="buttonStyle">
+    <button :class="buttonClasses" :style="buttonStyle">
         {{ label }}
     </button>
 </template>
-<style scoped>
-    button {
-        padding: 10px 15px;
-        text-align: center;
-        font-weight: 500;
-        font-family: 'Montserrat', sans-serif;
-        border-radius: 5px;
-        font-size: 14px;
-        transition: all 200ms ease;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #203D8B;
-        color: #fff;
-    }
-    button:active {
-        background-color: #203D8B;
-        color: #fff;
-    }
-    </style>
-    
-    <script>
-    export default {
-        name: "BaseButton",
-        props: {
-        label: {
-            type: String,
-            default: "Default Button",
-        },
-        color: {
-            type: String,
-            default: "#031954", // default text color
-        },
-        backgroundColor: {
-            type: String,
-            default: "#fff", // default background color
-        },
-        borderColor: {
-            type: String,
-            default: "#031954", // default border color
-        },
-        fontSize: {
-            type: String,
-            default: "14px", // default font size
-        },
-        },
-        computed: {
-        buttonStyle() {
-            return {
-            color: this.color,
-            backgroundColor: this.backgroundColor,
-            border: `1px solid ${this.borderColor}`,
-            fontSize: this.fontSize,
-            };
-        },
-        },
-    };
+
+<script setup lang="ts">
+import { computed } from 'vue';
+interface Props {
+    label?: string;
+    color?: string;
+    backgroundColor?: string;
+    borderColor?: string;
+    fontSize?: string;
+}
+const props = defineProps<Props>();
+
+const defaultProps = {
+    label: 'Default Button',
+    color: '#031954',
+    backgroundColor: '#fff',
+    borderColor: '#031954',
+    fontSize: '14px',
+};
+
+const buttonClasses = computed(() => [
+    'px-4 py-2 text-center font-semibold rounded transition-all duration-200 cursor-pointer',
+    'hover:bg-blue-800 hover:text-white',
+    'active:bg-blue-800 active:text-white',
+].join(' '));
+
+const buttonStyle = computed(() => ({
+    color: props.color || defaultProps.color,
+    backgroundColor: props.backgroundColor || defaultProps.backgroundColor,
+    border: `1px solid ${props.borderColor || defaultProps.borderColor}`,
+    fontSize: props.fontSize || defaultProps.fontSize,
+}));
 </script>

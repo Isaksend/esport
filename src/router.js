@@ -5,6 +5,7 @@ import PersonalAccount from './components/PersonalAccount/PersonalAccount.vue';
 import SchoolData from './components/SportSchools/SchoolData.vue';
 import AddSchoolPage from './components/addItem/addSchoolPage.vue';
 import SchoolInfo from './components/SportSchools/SchoolInfo.vue';
+import SportsMenProfile from './components/SportSchools/SportsMenProfile.vue';
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -18,6 +19,7 @@ const router = createRouter({
             props: true 
         },
         { path: '/AddSchool', component: AddSchoolPage},
+        { path: '/SportsmenProfile', component: SportsMenProfile}
     ]
 })
 export default router;

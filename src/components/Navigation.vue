@@ -62,12 +62,6 @@ const logout = async () => {
                     </div>
                 </a>
                 <a href="#" class="navLink">
-                    <img src="../assets/icons/Shop.png">
-                    <div class="navText">
-                        Магазин
-                    </div>
-                </a>
-                <a href="#" class="navLink">
                     <img src="../assets/icons/Survey.png">
                     <div class="navText">
                         Опросы
