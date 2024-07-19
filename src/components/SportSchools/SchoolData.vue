@@ -3,7 +3,6 @@ import SchoolNav from "./SchoolNav.vue";
 import SchoolInfo from "./SchoolInfo.vue";
 import SchoolCoachList from "./SchoolCoachList.vue";
 import SchoolSportsMen from "./SchoolSportsMen.vue";
-import addSportsmanProfile from "../addItem/addSportsmanProfile.vue";
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
@@ -22,7 +21,6 @@ function toggleModal() {
         enableScroll();
     }
 }
-
 function enableScroll() {
     document.body.style.overflow = '';
     document.body.style.paddingRight = '';
@@ -64,7 +62,7 @@ onMounted(() => {
         <SchoolInfo v-if="currentView === 'info'" :school="school.value" />
         <SchoolCoachList v-if="currentView === 'coaches'" />
         <SchoolSportsMen v-if="currentView === 'sportsmen'" />
-        <addSportsmanProfile v-if="showModal" @close="toggleModal" class="add_sportsman" />
+        <sports-men-profile v-if="currentView === 'sportsmen-profile'"/>
     </div>
     <div v-else>
         Данные не найдены!

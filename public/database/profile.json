@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Рамазан",
+        "surname": "Оразов",
+        "position": "Главный тренер",
+        "biography": "И́горь Вале́рьевич Ша́цкий — казахстанский футболист, вратарь клуба «Актобе» и сборной Казахстана.",
+        "status": "sportsman",
+        "photo": "https://i.postimg.cc/MTwqybrs/profile-num-2.png",
+        "disciplines": [
+            "kickboxing",
+            "box",
+            "Каратэ",
+            "Football"
+        ],
+        "coach": "Станислав Черчесов",
+        "rating": 4,
+        "gallery": [
+            "https://i.postimg.cc/HLsfHZR1/Orazov-gal-1.png",
+            "https://i.postimg.cc/wv1ZRt9W/Orazov-gal-2.png",
+            "https://i.postimg.cc/25cg5dNb/Orazov-gal-3.png",
+            "https://i.postimg.cc/HLsfHZR1/Orazov-gal-1.png",
+            "https://i.postimg.cc/wv1ZRt9W/Orazov-gal-2.png",
+            "https://i.postimg.cc/25cg5dNb/Orazov-gal-3.png"
+        ]
+    }
+]
