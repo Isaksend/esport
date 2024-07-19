@@ -2,7 +2,9 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 const store = useStore();
 const addSchoolResponse = ref(null);
 
@@ -18,7 +20,7 @@ const addSchool = async () => {
     const schoolData = {
         name: nameSchool.value,
         title: titleSchool.value,
-        city: city.value,
+        cityId: city.value,
         description: descriptionSchool.value,
         address: address.value,
     };
@@ -39,6 +41,7 @@ const addSchool = async () => {
 const onSubmit = (event) => {
     event.preventDefault();
     addSchool();
+    router.push('/PersonalAccount');
 };
 </script>
 <template>
@@ -53,7 +56,7 @@ const onSubmit = (event) => {
                 <label for="title_school">Заголовок</label>
                 <input v-model="titleSchool" type="text" name="title_school" id="title_school" required><br/>
                 <label for="city">Город</label>
-                <input v-model="city" type="text" name="city" id="city" required/><br/>
+                <input v-model="cityId" type="text" name="city" id="city" required/><br/>
                 <label for="description_school">Описание</label>
                 <textarea v-model="descriptionSchool" type="text" name="description_school" id="description_school" required>
                 </textarea><br/>

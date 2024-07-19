@@ -52,6 +52,7 @@
         border: 1px solid #031954;
         transition: all 200ms ease;
         text-decoration: none;
+        cursor: pointer;
     }
     .nav_item:hover{
         background-color: #203D8B;

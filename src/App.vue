@@ -3,6 +3,7 @@
   import Navigation from "./components/Navigation.vue";
   import QazMap from "./components/QazMap.vue";
   import ModalBlock from "./components/ModalBlock.vue";
+  import addSportsmanProfile from "./components/addItem/addSportsmanProfile.vue";
 </script>
 <template>
   <div class="App">
